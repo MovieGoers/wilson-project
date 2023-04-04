@@ -28,4 +28,8 @@ def create_app(test_config = None):
     from . import auth
     app.register_blueprint(auth.bp)
 
+    from . import mainpage
+    app.register_blueprint(mainpage.bp)
+    app.add_url_rule('/', endpoint='main')
+
     return app
