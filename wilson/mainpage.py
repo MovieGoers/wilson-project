@@ -8,6 +8,7 @@ from wilson.db import get_db
 
 from wilson import apiyup
 
+'''
 import openai
 
 openai.api_key = apiyup.apiyupyup()
@@ -20,6 +21,8 @@ def ChatGPT_conversation(conversation):
     )
     conversation.append({'role': response.choices[0].message.role, 'content': response.choices[0].message.content})
     return conversation
+'''
+
 
 bp = Blueprint('mainpage', __name__)
 
@@ -30,13 +33,18 @@ def mainpage():
     
     conversation = []
 
-    conversation.append({'role': 'system', 'content': 'say oh!'}) #Say Cheese GPT~~
-    conversation = ChatGPT_conversation(conversation)
+    #conversation.append({'role': 'system', 'content': 'say oh!'}) #Say Cheese GPT~~
+    #conversation = ChatGPT_conversation(conversation)
 
-    GPT_today = conversation[-1]['content'].strip()
-
+    GPT_today = '"Can you please clarify that for me?" This expression is very useful when you are in a conversation or a meeting and someone says something that you dont fully understand or that seems vague. Instead of nodding along and pretending to understand, you can ask them to clarify what they mean. It shows that you are actively listening and engaged in the conversation, and it helps to prevent any miscommunications or misunderstandings.'
+    #conversation[-1]['content'].strip()
     nickname = get_db().execute(
             'SELECT * FROM user WHERE id = ?', (user_id,)
         ).fetchone()
     
     return render_template('mainpage/mainpage.html', GPT_today = GPT_today, nickname = nickname)
+
+@bp.route('/talktowilson')
+@login_required
+def talktowilson():
+    return render_template('mainpage/talktowilson.html')

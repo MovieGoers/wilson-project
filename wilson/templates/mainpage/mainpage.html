@@ -7,8 +7,9 @@
     <title>Mainpage - Wilson</title>
 </head>
 <body>
-    <h2><a href="{{ url_for('auth.logout') }}">Log Out</a></h2>
     <h1>Welcome, {{ nickname['nickname'] }}!</h1>
+    <h2><a href="{{ url_for('auth.logout') }}">Log Out</a></h2>
+    <h2><a href="{{ url_for('mainpage.talktowilson') }}">Talk To Wilson!</a></h2>
     <h1>{{GPT_today}}</h1>
 </body>
 </html>
