@@ -9,5 +9,5 @@ from wilson.db import get_db
 bp = Blueprint('mainpage', __name__)
 
 @bp.route('/')
-def index():
+def mainpage():
     return render_template('mainpage/mainpage.html')
