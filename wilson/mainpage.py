@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for, session
 )
 from werkzeug.exceptions import abort
 
@@ -26,11 +26,17 @@ bp = Blueprint('mainpage', __name__)
 @bp.route('/')
 @login_required
 def mainpage():
+    user_id = session.get('user_id')
+    
     conversation = []
 
-    conversation.append({'role': 'system', 'content': 'say cheese!'}) #Say Cheese GPT~~
+    conversation.append({'role': 'system', 'content': 'say oh!'}) #Say Cheese GPT~~
     conversation = ChatGPT_conversation(conversation)
 
-    GPT_answer = conversation[-1]['content'].strip()
+    GPT_today = conversation[-1]['content'].strip()
 
-    return render_template('mainpage/mainpage.html', GPT_answer = GPT_answer)
+    nickname = get_db().execute(
+            'SELECT * FROM user WHERE id = ?', (user_id,)
+        ).fetchone()
+    
+    return render_template('mainpage/mainpage.html', GPT_today = GPT_today, nickname = nickname)
