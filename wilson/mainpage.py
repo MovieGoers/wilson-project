@@ -47,9 +47,14 @@ def mainpage():
 @bp.route('/talktowilson', methods=['GET', 'POST'])
 @login_required
 def talktowilson():
-    temp_str = ''
-
+    wilson_role = ''
+    user_role = ''
+    background_desc = ''
+    
     #사용자가 버튼을 클릭시 request.form으로 내용이 전송된다.
     if request.method == 'POST':
-        temp_str = request.form['input_text']
-    return render_template('mainpage/talktowilson.html', temp_str = temp_str)
+        #user_text = request.form['input_text']
+        wilson_role = 'Shop Owner'
+        user_role = 'Customer'
+        background_desc = 'You are a customer, and I am blah blah blah blah blah blah blah blahblah blah blah blahblah blah blah blahblah blah blah blahblah blah blah blah'
+    return render_template('mainpage/talktowilson.html', wilson_role = wilson_role, user_role = user_role, background_desc = background_desc)
