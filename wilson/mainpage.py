@@ -44,7 +44,12 @@ def mainpage():
     
     return render_template('mainpage/mainpage.html', GPT_today = GPT_today, nickname = nickname)
 
-@bp.route('/talktowilson')
+@bp.route('/talktowilson', methods=['GET', 'POST'])
 @login_required
 def talktowilson():
-    return render_template('mainpage/talktowilson.html')
+    temp_str = ''
+
+    #사용자가 버튼을 클릭시 request.form으로 내용이 전송된다.
+    if request.method == 'POST':
+        temp_str = request.form['input_text']
+    return render_template('mainpage/talktowilson.html', temp_str = temp_str)

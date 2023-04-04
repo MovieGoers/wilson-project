@@ -7,6 +7,12 @@
     <title>Talk To Wilson!</title>
 </head>
 <body>
-    <h2><a href="{{ url_for('mainpage.mainpage') }}">Go back</a></h2>
+    <h2><a href="{{ url_for('mainpage.mainpage') }}"><- Back</a></h2>
+    <form method="POST" action="/talktowilson">
+        input->
+      <input type="text" name="input_text" placeholder="type your question here!">
+      <button type="submit">Click me!</button>
+    </form>
+    <textarea cols="50" rows="10">{{ temp_str }}</textarea>
 </body>
 </html>
