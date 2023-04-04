@@ -2,7 +2,7 @@
 <title>{% block title %}{% endblock %} - Flaskr</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
-  <h1>Wilson</h1>
+  <h1><img class="fit-picture" src="/static/wilson_logo.jpg" alt="WILSON!" style="max-width: 30%; height: auto;"></h1>
   <ul>
     {% if g.user %}
       <li><span>{{ g.user['username'] }}</span>

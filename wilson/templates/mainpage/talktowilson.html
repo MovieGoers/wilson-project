@@ -7,10 +7,11 @@
     <title>Talk To Wilson!</title>
 </head>
 <body>
+    <img class="fit-picture" src="/static/wilson_logo.jpg" alt="WILSON!" style="max-width: 30%; height: auto;">
     <h2><a href="{{ url_for('mainpage.mainpage') }}"><- Back</a></h2>
     <form method="POST" action="/talktowilson">
         input->
-      <input type="text" name="input_text" placeholder="type your question here!">
+      <input type="text" name="input_text" placeholder="Type your interest!">
       <button type="submit">Click me!</button>
       <h3>You are {{user_role}}</h3>
       <h3>Wilson is {{wilson_role}}</h3>
