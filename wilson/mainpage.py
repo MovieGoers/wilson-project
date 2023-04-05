@@ -60,18 +60,18 @@ def talkingtowilson():
 
     first_input = 'Lets do a role play that can happen in real life about '
     first_input += user_topic
-    first_input += '. what scenario are we going to play?'
+    first_input += '. Your name is Wilson. what scenario are we going to play?'
     conversation.append({'role': 'system', 'content': first_input})
     conversation = ChatGPT_conversation(conversation)
     background_desc = conversation[-1]['content'].strip()
 
-    second_input = 'who am I playing as? answer it in a single word.'
+    second_input = 'what is my role? answer it in a single word.'
     conversation.append({'role': 'user', 'content': second_input})
     conversation = ChatGPT_conversation(conversation)
 
     user_role = conversation[-1]['content'].strip()
 
-    final_input = 'what are you playing as? answer it in a single word.'
+    final_input = 'What is Wilson role? answer it in a single word.'
     conversation.append({'role': 'user', 'content': final_input})
     conversation = ChatGPT_conversation(conversation)
 
@@ -81,4 +81,5 @@ def talkingtowilson():
     conversation = ChatGPT_conversation(conversation)
 
     wilson_speaking = conversation[-1]['content'].strip()
+
     return render_template('mainpage/talkingtowilson.html', wilson_role = wilson_role, user_role = user_role, background_desc = background_desc, wilson_speaking = wilson_speaking)

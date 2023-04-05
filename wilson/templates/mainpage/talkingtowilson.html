@@ -12,10 +12,10 @@
 
     <h3>You are {{user_role}}</h3>
     <h3>Wilson is {{wilson_role}}</h3>
-    <h3>Here is the story, {{background_desc}}</h3>
+    <h3>{{background_desc}}</h3>
     <h3>{{wilson_role}} : {{wilson_speaking}}</h3>
     input->
-    
+
     <form method="POST" action="{{url_for('mainpage.talkingtowilson')}}">
       <input type="text" name="user_text" placeholder="Talk To Wilson!">
       <button type="submit">Click me!</button>
