@@ -60,7 +60,7 @@ def talkingtowilson():
 
     first_input = 'Lets do a role play that can happen in real life about '
     first_input += user_topic
-    first_input += '. Your name is Wilson. what scenario are we going to play?'
+    first_input += '. what scenario are we going to play?'
     conversation.append({'role': 'system', 'content': first_input})
     conversation = ChatGPT_conversation(conversation)
     background_desc = conversation[-1]['content'].strip()
@@ -71,7 +71,7 @@ def talkingtowilson():
 
     user_role = conversation[-1]['content'].strip()
 
-    final_input = 'What is Wilson role? answer it in a single word.'
+    final_input = 'What is your role? answer it in a single word.'
     conversation.append({'role': 'user', 'content': final_input})
     conversation = ChatGPT_conversation(conversation)
 
