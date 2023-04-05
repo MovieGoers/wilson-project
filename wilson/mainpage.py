@@ -8,7 +8,6 @@ from wilson.db import get_db
 
 from wilson import apiyup
 
-'''
 import openai
 
 openai.api_key = apiyup.apiyupyup()
@@ -21,7 +20,6 @@ def ChatGPT_conversation(conversation):
     )
     conversation.append({'role': response.choices[0].message.role, 'content': response.choices[0].message.content})
     return conversation
-'''
 
 
 bp = Blueprint('mainpage', __name__)
@@ -33,11 +31,10 @@ def mainpage():
     
     conversation = []
 
-    #conversation.append({'role': 'system', 'content': 'say oh!'}) #Say Cheese GPT~~
-    #conversation = ChatGPT_conversation(conversation)
+    conversation.append({'role': 'system', 'content': 'say Cheese!'}) #Say Cheese GPT~~
+    conversation = ChatGPT_conversation(conversation)
 
-    GPT_today = '"Can you please clarify that for me?" This expression is very useful when you are in a conversation or a meeting and someone says something that you dont fully understand or that seems vague. Instead of nodding along and pretending to understand, you can ask them to clarify what they mean. It shows that you are actively listening and engaged in the conversation, and it helps to prevent any miscommunications or misunderstandings.'
-    #conversation[-1]['content'].strip()
+    GPT_today = conversation[-1]['content'].strip()
     nickname = get_db().execute(
             'SELECT * FROM user WHERE id = ?', (user_id,)
         ).fetchone()
@@ -56,7 +53,32 @@ def talktowilson():
 @bp.route('/talkingtowilson', methods=['GET', 'POST'])
 @login_required
 def talkingtowilson():
-    wilson_role = request.form.get('input_interest')
-    user_role = request.form.get('input_interest')
-    background_desc = request.form.get('input_interest')
-    return render_template('mainpage/talkingtowilson.html', wilson_role = wilson_role, user_role = user_role, background_desc = background_desc)
+    #talktowilson으로부터 전달받은 data 사용.
+    conversation = []
+
+    user_topic = request.form.get('input_interest')
+
+    first_input = 'Lets do a role play that can happen in real life about '
+    first_input += user_topic
+    first_input += '. what scenario are we going to play?'
+    conversation.append({'role': 'system', 'content': first_input})
+    conversation = ChatGPT_conversation(conversation)
+    background_desc = conversation[-1]['content'].strip()
+
+    second_input = 'who am I playing as? answer it in a single word.'
+    conversation.append({'role': 'user', 'content': second_input})
+    conversation = ChatGPT_conversation(conversation)
+
+    user_role = conversation[-1]['content'].strip()
+
+    final_input = 'what are you playing as? answer it in a single word.'
+    conversation.append({'role': 'user', 'content': final_input})
+    conversation = ChatGPT_conversation(conversation)
+
+    wilson_role = conversation[-1]['content'].strip()
+
+    conversation.append({'role': 'user', 'content': 'So, You are '+wilson_role+', and I am '+user_role+'. Ok, Lets start now. Hello ' + wilson_role})
+    conversation = ChatGPT_conversation(conversation)
+
+    wilson_speaking = conversation[-1]['content'].strip()
+    return render_template('mainpage/talkingtowilson.html', wilson_role = wilson_role, user_role = user_role, background_desc = background_desc, wilson_speaking = wilson_speaking)
