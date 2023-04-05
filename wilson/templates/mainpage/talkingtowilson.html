@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Talk To Wilson!</title>
+    <title>Talking To Wilson!</title>
 </head>
 <body>
     <img class="fit-picture" src="/static/wilson_logo.jpg" alt="WILSON!" style="max-width: 30%; height: auto;">
     <h2><a href="{{ url_for('mainpage.mainpage') }}"><- Back</a></h2>
     <form method="POST" action="{{url_for('mainpage.talkingtowilson')}}">
-        input->
-      <input type="text" name="input_interest" placeholder="Type your interest!">
+      <h3>You are {{user_role}}</h3>
+      <h3>Wilson is {{wilson_role}}</h3>
+      <h3>Here is the story, {{background_desc}}</h3>
+      input->
+      <input type="text" name="input_text" placeholder="Type your interest!">
       <button type="submit">Click me!</button>
     </form>
 </body>

@@ -47,14 +47,16 @@ def mainpage():
 @bp.route('/talktowilson', methods=['GET', 'POST'])
 @login_required
 def talktowilson():
-    wilson_role = ''
-    user_role = ''
-    background_desc = ''
-    
-    #사용자가 버튼을 클릭시 request.form으로 내용이 전송된다.
+    #사용자가 버튼을 클릭시 request.form으로 data가 talkingtowilson으로 전송된다.
     if request.method == 'POST':
-        #user_text = request.form['input_text']
-        wilson_role = 'Shop Owner'
-        user_role = 'Customer'
-        background_desc = 'You are a customer, and I am blah blah blah blah blah blah blah blahblah blah blah blahblah blah blah blahblah blah blah blahblah blah blah blah'
-    return render_template('mainpage/talktowilson.html', wilson_role = wilson_role, user_role = user_role, background_desc = background_desc)
+        return redirect(url_for("talkingtowilson"))
+    else:
+         return render_template('mainpage/talktowilson.html')
+
+@bp.route('/talkingtowilson', methods=['GET', 'POST'])
+@login_required
+def talkingtowilson():
+    wilson_role = request.form.get('input_interest')
+    user_role = request.form.get('input_interest')
+    background_desc = request.form.get('input_interest')
+    return render_template('mainpage/talkingtowilson.html', wilson_role = wilson_role, user_role = user_role, background_desc = background_desc)
