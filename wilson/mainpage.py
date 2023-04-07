@@ -51,19 +51,14 @@ def talktowilson():
 
 @bp.route('/testpage', methods=['GET', 'POST'])
 def testpage():
+    gpt_answer = ''
     conversation = []
-
-    first_input = 'Lets do a role play that can happen in real life about Film.'
-    first_input += ' what is the situation in this roleplay? Who am I playing? Who are you playing? tell me briefly.'
-    conversation.append({'role': 'system', 'content': first_input})
-    conversation = ChatGPT_conversation(conversation)
-    background_desc = conversation[-1]['content'].strip()
-
-    conversation.append({'role': 'user', 'content': 'Ok, you can start first. Say one sentence and wait for my answer.'})
+    initial_input = 'I will give you an English writing.'
+    initial_input += ' Please change the writing to be grammatically correct in English and better in expression.'
+    initial_input += ' also, do not answer except for the changed sentence.'
+    conversation.append({'role': 'system', 'content': initial_input})
     conversation = ChatGPT_conversation(conversation)
 
-    gpt_answer = conversation[-1]['content'].strip()
-    
     if request.method == 'POST':
         data = request.get_json()['text']
         conversation.append({'role': 'user', 'content': data})
@@ -73,4 +68,4 @@ def testpage():
 
         return jsonify({'data': gpt_answer})
 
-    return render_template('mainpage/testpage.html', background_desc = background_desc, gpt_answer = gpt_answer)
+    return render_template('mainpage/testpage.html', gpt_answer = gpt_answer)
